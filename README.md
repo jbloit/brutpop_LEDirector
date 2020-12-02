@@ -9,3 +9,6 @@ RPI script(s) for running LED neopixel rings, controlled from midi.
 amidi -l
 ```
 
+### Links:
+
+https://www.raspberrypi.org/forums/viewtopic.php?t=144287
