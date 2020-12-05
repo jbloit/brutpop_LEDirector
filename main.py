@@ -24,21 +24,28 @@ class Ring:
 		self.start = index * NUM_STEPS
 		self.end = index * NUM_STEPS + NUM_STEPS - 1
 		self.alpha = 1
+		self.isOn = False
 		print('RING {} CTOR : range({}-{})'.format(index, self.start, self.end))
 
 	def noteOn(self, pitch):
-		print('ON.PITCH IN {}, internal note {}'.format(pitch, self.note))
+		#print('ON.PITCH IN {}, internal note {}'.format(pitch, self.note))
 		if (pitch==self.note):
+			self.isOn = True
 			for i in range (self.start, self.end+1):
 				strip[i]= (int(self.alpha*255),int(self.alpha*255),int(self.alpha*255))
+
 	def noteOff(self, pitch):
-		print('OFF.PITCH IN {}, internal note {}'.format(pitch, self.note))
+		#print('OFF.PITCH IN {}, internal note {}'.format(pitch, self.note))
 		if (pitch==self.note):
+			self.isOn = False
 			for i in range (self.start, self.end+1):
 				strip[i]= (0, 0, 0)
+
 	def cc(self, ccNum, ccVal):
 		if (ccNum==self.control):
 			self.alpha = ccVal/127
+			if (self.isOn):
+				self.noteOn(self.note)
 
 ring0 = Ring(0, 36, 1)
 ring1 = Ring(1, 37, 2)
