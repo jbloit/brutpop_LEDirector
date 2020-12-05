@@ -11,4 +11,5 @@ amidi -l
 
 ### Links:
 
-https://www.raspberrypi.org/forums/viewtopic.php?t=144287
+https://ixdlab.itu.dk/wp-content/uploads/sites/17/2017/10/Setting-Up-Raspberry-Pi-for-MIDI.pdf
+
