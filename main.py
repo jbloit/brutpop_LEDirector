@@ -11,10 +11,14 @@ ORDER = neopixel.RGB
 BRIGHTNESS = 0.7
 NUM_PIXELS = NUM_STEPS * NUM_RINGS
 
+COLORS = [(230,20,100), (30,200,10), (0,20,100), (100,100,0)]
+
+
+
 ## GLOBALS
 strip = neopixel.NeoPixel (DATA_PIN, NUM_PIXELS, pixel_order=ORDER, brightness=BRIGHTNESS)
 midiInput = mido.get_input_names()[0]
-
+#
 ## RINGS
 class Ring:
 	def __init__(self, index, note, control):
@@ -25,21 +29,24 @@ class Ring:
 		self.end = index * NUM_STEPS + NUM_STEPS - 1
 		self.alpha = 1
 		self.isOn = False
-		self.program = 0 
+		self.mode = 0
+		
+		# for mode 1, current selected color index in COLORS array
+		self.color = 0
+		
 		print('RING {} CTOR : range({}-{})'.format(index, self.start, self.end))
 
 	def noteOn(self, pitch):
 		if (pitch==self.note):
-			if (self.program == 0):
-				print('note on program 0')
+			if (self.mode == 0):
 				self.isOn = True
 				strip[self.start:self.end+1] = [(int(self.alpha*255),int(self.alpha*255),int(self.alpha*255))] * NUM_STEPS
 
-			elif(self.program == 1):
+			elif(self.mode == 1):
 				self.isOn = True
-				strip[self.start:self.end+1] = [(255,0,100)] * NUM_STEPS
+				strip[self.start:self.end+1] = [COLORS[self.color]] * NUM_STEPS
 
-			elif(self.program == 2):
+			elif(self.mode == 2):
 				self.isOn = True
 				strip[self.start:self.end+1] = [(100,30,200)] * NUM_STEPS
 
@@ -50,16 +57,30 @@ class Ring:
 
 	def cc(self, ccNum, ccVal):
 		if (ccNum==self.control):
-			self.alpha = ccVal/127
-			if (self.isOn):
-				self.noteOn(self.note)
+
+			if (self.mode == 0):
+				self.alpha = ccVal/127
+				if (self.isOn):
+					self.noteOn(self.note)
+
+			elif (self.mode == 1):
+				if (ccVal < 30):
+					self.color = 0
+				elif (ccVal < 60):
+					self.color = 1
+				elif (ccVal < 90):
+					self.color = 2
+				else:
+					self.color = 3
+
+
 
 	def pc(self, progVal):
 		if (progVal>2):
 			progVal = 2
 		if (progVal<0):
 			progVal = 0
-		self.program = progVal
+		self.mode = progVal
 
 
 ring0 = Ring(0, 36, 1)
