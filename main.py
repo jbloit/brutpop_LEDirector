@@ -72,6 +72,8 @@ class Ring:
 					self.color = 2
 				else:
 					self.color = 3
+				if (self.isOn):
+					self.noteOn(self.note)
 
 
 
