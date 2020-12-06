@@ -31,15 +31,13 @@ class Ring:
 		#print('ON.PITCH IN {}, internal note {}'.format(pitch, self.note))
 		if (pitch==self.note):
 			self.isOn = True
-			for i in range (self.start, self.end+1):
-				strip[i]= (int(self.alpha*255),int(self.alpha*255),int(self.alpha*255))
+			strip[self.start:self.end+1]= [(int(self.alpha*255),int(self.alpha*255),int(self.alpha*255))] * NUM_STEPS
 
 	def noteOff(self, pitch):
 		#print('OFF.PITCH IN {}, internal note {}'.format(pitch, self.note))
 		if (pitch==self.note):
 			self.isOn = False
-			for i in range (self.start, self.end+1):
-				strip[i]= (0, 0, 0)
+			strip[self.start:self.end+1]= [(0, 0, 0)] * NUM_STEPS
 
 	def cc(self, ccNum, ccVal):
 		if (ccNum==self.control):
@@ -56,7 +54,6 @@ print('waiting for MIDI events from input : {}'.format(midiInput))
 port = mido.open_input(midiInput)
 for msg in port:
 	if (msg.type=='note_on'):
-		print(msg.note)
 		ring0.noteOn(msg.note)
 		ring1.noteOn(msg.note)
 
