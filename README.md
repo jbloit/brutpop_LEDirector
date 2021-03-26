@@ -4,15 +4,20 @@ RPI script(s) for running LED neopixel rings, controlled from midi.
 ## RaspberryPi Wiring
 
 We do it [this way](https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring#using-external-power-source-without-level-shifting-3005993-11)
+[This diagram](https://www.raspberrypi.org/documentation/usage/gpio/) of the GPIO pins of the pi can be useful.
 
 ## Installation from scratch
 
 ### OS installation
+
+
+
 - Install [PatchBox OS](https://blokas.io/patchbox-os/) on a micro-sd card. Insert the card in the pi.
 - plug a keyboard and screen to the pi and power it.
 - On first launch, the login is "patch", the password is "blokaslabs"
 - On first launch, the setup wizard should launch after login. You can change the password. I set it to "brutpop".
 - set the boot environment to desktop, it will be a litte easier for setting up the pi. 
+- For the following steps, you need an internet connection, make sure you connect to a wifi.
 
 *NB* if you need to reconfigure, open a terminal and type 'patchbox'
 
@@ -34,6 +39,14 @@ sudo python3 -m pip install --force-reinstall adafruit-blinka
 
 [see this link](https://learn.adafruit.com/neopixels-on-raspberry-pi/python-usage)
 
+
+### Copy the sources
+Download the code from this project, this will create a local folder called brutpop_LEDirector
+
+```bash
+cd
+git clone https://github.com/jbloit/brutpop_LEDirector.git
+```
 
 
 
