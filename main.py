@@ -105,6 +105,12 @@ class Ring:
         self.mode = progVal
 
 
+    def hilight(self, step):
+        if (self.mode == 2):
+            print(step)
+
+
+
 ring0 = Ring(0, 36, 1)
 ring1 = Ring(1, 37, 2)
 
@@ -115,12 +121,12 @@ mid = MidiFile('16notesAscending.mid')
 
 slowDownFactor = 1
 
-
 port = mido.open_input(midiInput)
 
 while True:
     for midimsg in mid:
-        time.sleep(midimsg.time * slowDownFactor);
+        time.sleep(midimsg.time * slowDownFactor)
+
         for msg in port:
             if (msg.type == 'note_on'):
                 ring0.noteOn(msg.note)
@@ -137,3 +143,6 @@ while True:
             if (msg.type == 'program_change'):
                 ring0.pc(msg.program)
                 ring1.pc(msg.program)
+
+        ring0.hilight(midimsg.note)
+        ring1.hilight(midimsg.note)
