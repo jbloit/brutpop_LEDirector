@@ -11,4 +11,4 @@ print(mid.length)
 while True:
     for msg in mid:
         time.sleep(msg.time * slowDownFactor)
-        print(msg)
+        print(msg.note)

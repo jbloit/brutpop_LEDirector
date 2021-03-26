@@ -127,7 +127,8 @@ while True:
     for midimsg in mid:
         time.sleep(midimsg.time * slowDownFactor)
 
-        for msg in port:
+
+        for msg in port.iter_pending():
             if (msg.type == 'note_on'):
                 ring0.noteOn(msg.note)
                 ring1.noteOn(msg.note)
@@ -144,5 +145,6 @@ while True:
                 ring0.pc(msg.program)
                 ring1.pc(msg.program)
 
-        ring0.hilight(midimsg.note)
-        ring1.hilight(midimsg.note)
+        if (midimsg.type == 'note_on'):
+            ring0.hilight(midimsg.note)
+            ring1.hilight(midimsg.note)
