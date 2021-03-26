@@ -104,11 +104,10 @@ class Ring:
             progVal = 0
         self.mode = progVal
 
-
     def hilight(self, step):
-        if (self.mode == 2):
-            print(step)
-
+        if self.mode == 2:
+            self.isOn = True
+            strip[self.start + step] = [(100, 30, 200)]
 
 
 ring0 = Ring(0, 36, 1)
@@ -126,7 +125,6 @@ port = mido.open_input(midiInput)
 while True:
     for midimsg in mid:
         time.sleep(midimsg.time * slowDownFactor)
-
 
         for msg in port.iter_pending():
             if (msg.type == 'note_on'):
