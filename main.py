@@ -123,28 +123,28 @@ slowDownFactor = 1
 
 port = mido.open_input(midiInput)
 
-# non-blocking port scan of midi events
-for msg in port.iter_pending():
-    if msg.type == 'note_on':
-        ring0.noteOn(msg.note)
-        ring1.noteOn(msg.note)
-
-    if msg.type == 'note_off':
-        ring0.noteOff(msg.note)
-        ring1.noteOff(msg.note)
-
-    if msg.type == 'control_change':
-        ring0.cc(msg.control, msg.value)
-        ring1.cc(msg.control, msg.value)
-
-    if msg.type == 'program_change':
-        ring0.pc(msg.program)
-        ring1.pc(msg.program)
-
 while True:
     for midimsg in mid:
         time.sleep(midimsg.time * slowDownFactor)
 
-        if midimsg.type == 'note_on':
+
+        for msg in port.iter_pending():
+            if (msg.type == 'note_on'):
+                ring0.noteOn(msg.note)
+                ring1.noteOn(msg.note)
+
+            if (msg.type == 'note_off'):
+                ring0.noteOff(msg.note)
+                ring1.noteOff(msg.note)
+
+            if (msg.type == 'control_change'):
+                ring0.cc(msg.control, msg.value)
+                ring1.cc(msg.control, msg.value)
+
+            if (msg.type == 'program_change'):
+                ring0.pc(msg.program)
+                ring1.pc(msg.program)
+
+        if (midimsg.type == 'note_on'):
             ring0.hilight(midimsg.note)
             ring1.hilight(midimsg.note)
