@@ -13,8 +13,6 @@ NUM_PIXELS = NUM_STEPS * NUM_RINGS
 
 COLORS = [(230,20,100), (30,200,10), (0,20,100), (100,100,0)]
 
-
-
 ## GLOBALS
 strip = neopixel.NeoPixel (DATA_PIN, NUM_PIXELS, pixel_order=ORDER, brightness=BRIGHTNESS)
 midiInput = mido.get_input_names()[0]
@@ -22,13 +20,33 @@ midiInput = mido.get_input_names()[0]
 ## RINGS
 class Ring:
 	def __init__(self, index, note, control):
+
+		# the pixel ring index. Valid range = [ 0, NUM_RINGS - 1]
 		self.index = index
+
+		# the midi note triggering the ring. Valid range = [0, 127].
 		self.note = note
+
+		# the midi control number that the ring reacts to. Valid range = [0, 127]
 		self.control = control
+
+		# keep a reference to the first led index of the ring
 		self.start = index * NUM_STEPS
+
+		# keep a reference to the last led index of the ring
 		self.end = index * NUM_STEPS + NUM_STEPS - 1
+
+		# the brightness of the ring. Valid range = [0.0, 1.0]
 		self.alpha = 1
+
+		# is the ring On?
 		self.isOn = False
+
+		# the mode.
+		# mode 0 : white light, either ON/OFF, cc changes brightness.
+		# mode 1 : coloured light (4 colours), either ON/OFF, CC value changes colour.
+		# mode 2 : patterns.
+
 		self.mode = 0
 		
 		# for mode 1, current selected color index in COLORS array
@@ -75,15 +93,12 @@ class Ring:
 				if (self.isOn):
 					self.noteOn(self.note)
 
-
-
 	def pc(self, progVal):
 		if (progVal>2):
 			progVal = 2
 		if (progVal<0):
 			progVal = 0
 		self.mode = progVal
-
 
 ring0 = Ring(0, 36, 1)
 ring1 = Ring(1, 37, 2)
@@ -98,8 +113,8 @@ for msg in port:
 		ring1.noteOn(msg.note)
 
 	if (msg.type=='note_off'):
-                ring0.noteOff(msg.note)
-                ring1.noteOff(msg.note)
+		ring0.noteOff(msg.note)
+		ring1.noteOff(msg.note)
 
 	if (msg.type=='control_change'):
 		ring0.cc(msg.control, msg.value)
@@ -108,4 +123,3 @@ for msg in port:
 	if (msg.type=='program_change'):
 		ring0.pc(msg.program)
 		ring1.pc(msg.program)
-
