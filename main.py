@@ -107,7 +107,8 @@ class Ring:
     def hilight(self, step):
         if self.mode == 2:
             self.isOn = True
-            strip[self.start + step] = [(100, 30, 200)]
+            strip[self.start:self.end + 1] = [(0, 0, 0)] * NUM_STEPS
+            strip[self.start + step] = (100, 30, 200)
 
 
 ring0 = Ring(0, 36, 1)
@@ -118,7 +119,7 @@ print('waiting for MIDI events from input : {}'.format(midiInput))
 
 mid = MidiFile('16notesAscending.mid')
 
-slowDownFactor = 1
+slowDownFactor = 0.5
 
 port = mido.open_input(midiInput)
 
