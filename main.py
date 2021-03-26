@@ -121,19 +121,19 @@ port = mido.open_input(midiInput)
 while True:
     for midimsg in mid:
         time.sleep(midimsg.time * slowDownFactor);
-		for msg in port:
-			if (msg.type == 'note_on'):
-				ring0.noteOn(msg.note)
-				ring1.noteOn(msg.note)
+        for msg in port:
+            if (msg.type == 'note_on'):
+                ring0.noteOn(msg.note)
+                ring1.noteOn(msg.note)
 
-			if (msg.type == 'note_off'):
-				ring0.noteOff(msg.note)
-				ring1.noteOff(msg.note)
+            if (msg.type == 'note_off'):
+                ring0.noteOff(msg.note)
+                ring1.noteOff(msg.note)
 
-			if (msg.type == 'control_change'):
-				ring0.cc(msg.control, msg.value)
-				ring1.cc(msg.control, msg.value)
+            if (msg.type == 'control_change'):
+                ring0.cc(msg.control, msg.value)
+                ring1.cc(msg.control, msg.value)
 
-			if (msg.type == 'program_change'):
-				ring0.pc(msg.program)
-				ring1.pc(msg.program)
+            if (msg.type == 'program_change'):
+                ring0.pc(msg.program)
+                ring1.pc(msg.program)
