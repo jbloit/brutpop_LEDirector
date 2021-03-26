@@ -48,6 +48,21 @@ cd
 git clone https://github.com/jbloit/brutpop_LEDirector.git
 ```
 
+## Run the code
+
+open a terminal window and type
+```bash
+cd 
+cd brutpop_LEDirector
+sudo python3 main.py
+```
+It should reply with something like:
+```bash
+waiting for MIDI events from input : LPD8:LPD8 MIDI l 20:0
+``` 
+
+
+
 
 
 
