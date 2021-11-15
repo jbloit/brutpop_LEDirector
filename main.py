@@ -108,6 +108,10 @@ print('waiting for MIDI events from input : {}'.format(midiInput))
 
 port = mido.open_input(midiInput)
 for msg in port:
+
+	print("$$$$$$$$$$$$$$$$ NEW MESSAGE $$$$$$$$$$$$$$$")
+	print(msg.dict())
+
 	if (msg.type=='note_on'):
 		ring0.noteOn(msg.note)
 		ring1.noteOn(msg.note)
