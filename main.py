@@ -11,7 +11,7 @@ ORDER = neopixel.RGB
 BRIGHTNESS = 0.7
 NUM_PIXELS = NUM_STEPS * NUM_RINGS
 
-COLORS = [(230,20,100), (30,200,10), (0,20,100), (100,100,0)]
+COLORS = [(255,0,0), (0,255,0), (0,0,255)]
 
 ## GLOBALS
 strip = neopixel.NeoPixel (DATA_PIN, NUM_PIXELS, pixel_order=ORDER, brightness=BRIGHTNESS)
@@ -44,7 +44,7 @@ class Ring:
 
 		# the mode.
 		# mode 0 : white light, either ON/OFF, cc changes brightness.
-		# mode 1 : coloured light (4 colours), either ON/OFF, CC value changes colour.
+		# mode 1 : coloured light (3 colours), either ON/OFF, CC value changes colour.
 		# mode 2 : patterns.
 
 		self.mode = 0
@@ -82,14 +82,12 @@ class Ring:
 					self.noteOn(self.note)
 
 			elif (self.mode == 1):
-				if (ccVal < 30):
+				if (ccVal < 42):
 					self.color = 0
-				elif (ccVal < 60):
+				elif (ccVal < 84):
 					self.color = 1
-				elif (ccVal < 90):
-					self.color = 2
 				else:
-					self.color = 3
+					self.color = 2
 				if (self.isOn):
 					self.noteOn(self.note)
 
