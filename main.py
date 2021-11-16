@@ -16,6 +16,10 @@ COLORS = [(255,0,0), (0,255,0), (0,0,255)]
 ## GLOBALS
 strip = neopixel.NeoPixel (DATA_PIN, NUM_PIXELS, pixel_order=ORDER, brightness=BRIGHTNESS)
 midiInput = mido.get_input_names()[0]
+
+
+
+
 #
 ## RINGS
 class Ring:
@@ -112,7 +116,11 @@ ring7 = Ring(7, 43, 8)
 ## MAIN
 print('waiting for MIDI events from input : {}'.format(midiInput))
 
-port = mido.open_input(midiInput)
+try:
+	port = mido.open_input(midiInput)
+except:
+	print("could not open MIDI port")
+
 for msg in port:
 	if (msg.type=='note_on'):
 		ring0.noteOn(msg.note)
