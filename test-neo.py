@@ -9,21 +9,20 @@ pixels1 = board.D18
 ##COMMENTED OUT pixels2 = board.D15
 
 ## Num leds daisychained
-num_pixels = 32
+num_rings = 8
+num_pixels = num_rings * 16
 
 ## colour information
-ORDER = neopixel.GRB
+ORDER = neopixel.RGB
 
 ## class with information
-pixelswow1  = neopixel.NeoPixel (pixels1, num_pixels, pixel_order=ORDER, brightness = 1)
+pixels  = neopixel.NeoPixel (pixels1, num_pixels, pixel_order=ORDER, brightness = 1)
 ##COMMENTED OUT pixelswow2 = neopixel.NeoPixel (pixels2, num_pixels, pixel_order=ORDER)
 
 ## ranges for seperate rings and their info
-for a in range (0,16):
-	pixelswow1[a]= (0,255,0)
+for r in range (0, num_rings):
+	pixels[r*16]= (0,255,255)
 
-for b in range (16,32):
-	pixelswow1[b] = (255,0,0)
 
 ##UTILITY EXAMPLES
 ## ONE LED TO ADDRESS FROM 1 - 32 pixelswow1[1]= (0,255,0)
