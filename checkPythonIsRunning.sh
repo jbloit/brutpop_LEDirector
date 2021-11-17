@@ -6,7 +6,7 @@ while [ true ]; do
       echo "Running"
   else
       echo "Stopped"
-      python3 main.py
+      sudo /usr/bin/python3 /home/patch/brutpop_LEDirector/main.py
   fi
   sleep 5
 done
