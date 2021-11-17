@@ -61,9 +61,17 @@ It should reply with something like:
 waiting for MIDI events from input : LPD8:LPD8 MIDI l 20:0
 ``` 
 
+### autostart
 
 
+### Shutdown button
 
+button wired to GPIO pin 3 and ground.
+added this line to /boot/config.txt :
+
+```bash
+dtoverlay=gpio-shutdown,gpio_pin=3
+```
 
 
 
